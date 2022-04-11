@@ -1,0 +1,252 @@
+
+<html>
+{% load static %}
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<!-- jQuery library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<style>
+body {
+    background-color: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-input {
+    padding: 11px 16px;
+    border-radius: 10px 0 0 2px;
+    border: 1 px solid red;
+    outline: 0 none;
+    font-size: 15px
+}
+
+.navbar-button {
+    background-color: #ff80ff;
+    border: none;
+    /*border-radius: 0 2px 2px 0;*/
+    border-radius: 10px 0 0 2px;
+    color: #565656;
+    padding: 10px 0;
+    height: 43px;
+    cursor: pointer
+}
+
+.cart-button {
+    background-color: #ff4d4d;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .23), inset 1px 1px 0 0 hsla(0, 0%, 100%, .2);
+    padding: 10px 5px;
+    text-align: center;
+    height: 41px;
+    border-radius: 10px 0 0 2px;
+    font-weight: 500;
+    width: 120px;
+    margin-top: 10px;
+    display: inline-block;
+    color: #FFFFFF;
+    text-decoration: none;
+    color: inherit;
+    border: none;
+    outline: none
+}
+
+.cart-button:hover {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer
+}
+
+.cart-svg {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 8px
+}
+
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-left: 5px;
+  overflow: hidden;
+  color: #ff4d4d;
+  font-family: monospace;
+  background-color: none;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  display: block;
+  color: #ff4d4d;
+  font-size: 15px;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li:hover {
+    border: 2px solid #ff4d4d;
+    border-radius: 5px 25px;
+    font-size: 30px;
+    /*color: white;*/
+}
+
+/*ul.topnav li.right {float: right;}*/
+input {
+    margin-top: 10px;
+    outline: none;
+    border-radius: 10px 0 0 10px;
+    height: 50px;
+    width: 400px;
+    border: 1px solid #ff4d4d;
+}
+
+.query {
+    background-color: green;
+    
+}
+
+.btnsubmit {
+    background-color: #1affff;
+    outline: none;
+    border:  none;
+    height: 50px;
+    width: 50px;
+    border-radius: 0 10px 10px 0;
+}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.right, 
+  ul.topnav li {float: none;}
+
+
+
+
+        /*---------------------------------------
+           Social section
+        -----------------------------------------*/
+        footer {
+          padding: 0px 0px 0px 0px;
+          background-color: black;
+          margin: 0px;
+        }
+
+
+        #ftr {
+
+          padding: 20px;
+        }
+
+        .fa {
+
+          font-size: 23px;
+          width: 60px;
+          text-align: center;
+          text-decoration: none;
+          margin: 5px 2px;
+          border-radius: 50%;
+        }
+
+        .fa:hover {
+          opacity: 0.5;
+          text-decoration: none;
+        }
+
+        .fa-facebook {
+          background: #3B5998;
+          color: white;
+          margin-top: 30px;
+        }
+
+        .fa-whatsapp {
+          background: #25d366;
+          color: white;
+        }
+
+        .fa-twitter {
+          background: #55ACEE;
+          color: white;
+        }
+
+        .fa-instagram {
+          background: #125688;
+          color: white;
+        }
+
+        p {
+          text-align: center;
+
+        }
+        
+
+@media screen and (min-width: 768px) {
+    .largenav {
+        display: block
+    }
+
+    .smallnav {
+        display: none
+    }
+
+    .smallsearch {
+        margin: 0px
+    }
+}
+</style>
+</head>
+<body>
+{% include "customer_navbar.html" %}
+<!-- content start-->
+{% block content %}
+
+{% endblock content %}
+<!-- content end-->
+<br><br><br>
+<footer>
+  <p>
+    <a id="ftr" href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a>
+    <a id="ftr" href="https://api.whatsapp.com/send?phone=919572181024&text=Hello%20Sumit.%0d%0aHow%20are%20you%20%3f%0d%0aI%20came%20from%20your%20website.&source=&data=#" class="fa fa-whatsapp"></a>
+    <a id="ftr" href="https://instagram.com/sumit.luv" class="fa fa-instagram"></a>
+    <a id="ftr" href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a>
+  </p>
+
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
+          <p> <br>
+            Copyright &copy; </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+$(document).ready(function(){
+
+function openNav() {
+document.getElementById("mySidenav").style.width = "70%";
+
+document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+document.getElementById("mySidenav").style.width = "0";
+document.body.style.backgroundColor = "rgba(0,0,0,0)";
+}
+
+
+});
+</script>
+
+</body>
+</html>

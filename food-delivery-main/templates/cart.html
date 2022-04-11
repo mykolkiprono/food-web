@@ -1,0 +1,133 @@
+{% extends 'homebase.html' %}
+{% load static %}
+{% block content %}
+
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<style media="screen">
+
+  body {
+    background: linear-gradient(to bottom, #0066cc, #0000ff);
+  }
+  .button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4420b;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  animation-name: example;
+    background-color: blue;
+    animation-delay: 2s;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes example {
+    0%   {background-color: #f4420b;}
+    
+    100% {background-color: #ff9999;}
+  }
+
+  #button2 {
+    width: 300px;
+  }
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button2 {
+  background-color: white;
+  color: black;
+  border: 2px solid #008CBA;
+}
+
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.container {
+  padding-bottom: 100px;
+}
+</style>
+
+</head>
+
+<br><br><br><br>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <i class="material-icons"><h6 style="text-align:center; color: red; font-size: 30;" class="panel-title">My cart</h6></i>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Remove From Cart</th>
+
+        </tr>
+      </thead>
+      {% for p in products %}
+  {% if p %}
+
+      <tr>
+        <td> {{p.f_name}}</td>
+        <td> <img src="{% static p.image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+        <td>{{p.f_price}}</td>
+        <td>{{p.desc}}</td>
+
+        <td><a class="btn btn-danger btn-xs" href="{% url 'remove-from-cart' p.id  %}">remove<span class="glyphicon glyphicon-trash"></span></a></td>
+
+      </tr>
+      {%else%}
+      <br><br><br>
+      <h1>no products</h1>
+      {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<br><br><br>
+<div style="text-align: center;">
+  <button class="button button2">Total {{total}}</button>
+  <a href="/customer-address"><button class="button" ><span>Order </span></button></a>
+</div>
+<br><br><br><br><br><br><br>
+{% endblock content %}

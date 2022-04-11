@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <style media="screen">
+    body {
+      background: linear-gradient(to bottom, #0066cc, #0000ff);
+      /*background: url({% static 'bg-image.jpg' %});*/
+      background-repeat: no-repeat, no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    @import url("https://fonts.googleapis.com/css?family=Roboto:700");
+
+body {
+  margin: 0;
+  font-family: "Roboto";
+  /*text-align: center;*/
+}
+
+p {
+  margin: 0;
+}
+
+#container {
+  color: #999;
+  text-transform: uppercase;
+  font-size: 36px;
+  font-weight: bold;
+  padding-top: 0px;
+  width: 100%;
+  display: flex;
+
+
+}
+
+#text-wrapper {
+  height: 60px;
+  overflow: hidden;
+  padding-left: 70px;
+
+}
+
+#rotating-text {
+
+}
+
+#rotating-text span {
+  color: #fff;
+  padding: 5px 12px;
+  height: 60px;
+  margin-bottom: 45px;
+  display: block;
+  width: 250px;
+  font-family: monospace;
+  margin: 0 auto;
+  text-shadow: 2px 2px 4px black;
+
+}
+
+.blue-text {
+  background-color: rgb(1, 67, 189);
+}
+
+.orange-text {
+  background-color: rgb(250, 130, 32);
+}
+
+.red-text {
+  background-color: rgb(255, 39, 39);
+}
+
+#rotating-text {
+  display: block;
+  animation: rotate 7s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(-160px);
+  }
+  5% {
+    transform: translateY(-120px);
+  }
+  33% {
+    transform: translateY(-120px);
+  }
+  38% {
+    transform: translateY(-60px);
+  }
+  66% {
+    transform: translateY(-60px);
+  }
+  71% {
+    transform: translateY(0);
+  }
+  99.9% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-160px);
+  }
+}
+p{
+  color: red;
+
+}
+
+h1 {
+  color: darkred;
+}
+.rot {
+  margin-right: 20px;
+  padding: 20px;
+  
+}
+
+.content {
+  padding: 20px;
+  border-right: 2px solid brown;
+}
+    .footer{
+      position: fixed;
+    }
+
+    table {
+      margin-left: 50px;
+      margin-top: 20px;
+    }
+
+    td {
+      font-size: 25px;
+      color: white;
+      margin-left: 80px;
+
+    }
+  </style>
+</head>
+
+<body>
+  {%if request.user.is_authenticated%}
+    {% include "customer_navbar.html" %}
+  {%else%}
+    {% include "navbar.html" %}
+  {%endif%}
+  <br><br><br>
+<div id="container">
+
+  <div class="content">
+  <h1 style="color: white;">&rarr;We are <strong style="color: orange;">QuickEats.com</strong></h1>
+  <h1 style="color:white;">An online food company</h1>
+  </div>
+  <div class="rot">
+    <strong style="padding-left: 70px; text-shadow: 5px 5px 5px darkgreen;">&rarr;Our food include</strong>
+  <p id="text-wrapper">
+
+    <span id="rotating-text">
+      <span class="blue-text">PIZZA</span>
+      <span class="orange-text">hOT DOG</span>
+      <span class="red-text">GITHERI</span>
+    </span>
+  </div>  
+</div>
+<h1 style="padding-left: 50px;color: white; margin-top: 30px;">Our social media</h1>
+ <table style="width:50%">
+ 
+  <tr>
+    <td>  <a id="ftr" href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a> facebook page</td>
+    
+    
+  </tr>
+  <tr>
+    <td> <a id="ftr" href="https://api.whatsapp.com/send?phone=919572181024&text=Hello%20Sumit.%0d%0aHow%20are%20you%20%3f%0d%0aI%20me%20from%20your%20website.&source=&data=#" class="fa fa-whatsapp"></a> whatsapp </td>
+    
+  </tr>
+  <tr>
+    <td><a id="ftr" href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a> twitter handle</td>
+    
+  </tr>
+  <tr>
+    <td> <a id="ftr" href="https://instagram.com/sumit.luv" class="fa fa-instagram"></a> instagram page</td>   
+    
+    
+  </tr>
+</table> 
+
+<br><br><br><br><br><br><br><br>
+  {% include "footer.html" %}
+</body>
+
+
+</html>

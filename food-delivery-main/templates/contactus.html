@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title></title>
+
+  <style type="text/css">
+
+    body {
+      /*background-color: #3001a00;*/
+      background: linear-gradient(to bottom, #0066cc, #0000ff)
+    }
+    .btn {
+      background-color: none;
+      /*outline-color: red;*/
+      border: 1px solid red;
+    }
+
+    .btn:hover {
+      background-color: green;
+    }
+
+    .form-group {
+      height: 300px;
+      width: 300px;
+    }
+
+    input {
+      width: 200px;
+    }
+
+    form p{
+      align-items: center;
+      width: 100%;
+    }
+
+form {
+  color: red;
+  </style>
+}
+
+
+</head>
+
+<body>
+
+  {%if request.user.is_authenticated%}
+    {% include "customer_navbar.html" %}
+  {%else%}
+    {% include "navbar.html" %}
+  {%endif%}
+
+  <center>
+    <h3 class='alert alert-success'>Send Us Your Valuable Feedback !</h3>
+
+    <form method="POST">
+      <!-- Very Important csrf Token -->
+      {% csrf_token %}
+      <div class="form-group">
+        <p>
+        <h3>{{ form.as_p }}</h3>
+        </p>
+        <br>
+        <input type="submit" value="Send Message" class='btn'>
+      </div>
+    </form>
+  </center>
+  <br><br><br><br><br><br>
+  {% include "footer.html" %}
+</body>
+
+
+</html>

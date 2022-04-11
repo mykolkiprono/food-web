@@ -1,0 +1,100 @@
+{% extends 'customer_base.html' %}
+{% load static %}
+
+{% block content %}
+	<style type="text/css">
+		img {
+			width: 80px;
+			height: 80px;
+			margin-right: 100px;
+			margin-left: 50px;
+			/*padding: 20px;*/
+		}
+.container {
+    margin-top: 0px;
+    margin-bottom: 0px
+}
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.10rem
+}
+ul.row,
+ul.row-sm {
+    list-style: none;
+    padding: 0
+}
+
+.itemside .info {
+    padding-left: 15px;
+    padding-right: 7px
+}
+
+.itemside .title {
+    display: block;
+    margin-bottom: 5px;
+    color: #212529
+}
+
+
+.itemside {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%
+}
+
+.itemside .aside {
+    position: relative;
+    -ms-flex-negative: 0;
+   
+
+	</style>
+
+	<div>
+		<h3 style="text-align:center;">This are your active monthly orders  <strong>{{request.user}}</strong> !!!</h3> <br><br>
+		{% for plan,order in data %}
+			{% for p in plan %}
+
+			<article class="card">
+        <div class="card-body">
+            <ul class="row" style="margin-left:20px;margin-top:20px;">
+                <li class="col-md-4">
+                  <figure class="itemside mb-3">
+                    <div class="aside"><img src={{p.image.url}} class="img-sm border"></div>
+                      <figcaption class="info align-self-center">
+
+                          <p class="title"><strong>Name : </strong>{{p.f_name}} <br> <strong>Description : </strong>{{p.f_desc}}</p> <span class="text-muted"><strong>Price : </strong>{{p.f_price}} </span><br>
+                          <span class="text-muted"><strong>delivery shift : </strong>{{order.shift}} </span>
+
+                      </figcaption>
+
+                  </figure>
+                </li>
+                
+               
+			<!-- <p>food {{ p.f_name }} </p>
+			<img src={{p.image.url}} height="50" width="50">
+			<p>customer {{ request.user }} </p> -->
+			
+
+			{% endfor %}
+
+		</ul>
+		{% endfor %}
+		<!-- <p> delivery time {{ o.delivery_time }}</p> -->
+	</div>
+{% endblock %}

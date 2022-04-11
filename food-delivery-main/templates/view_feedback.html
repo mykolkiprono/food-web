@@ -1,0 +1,80 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<head>
+  <style media="screen">
+    .alert {
+      margin-left: 25%;
+      margin-right: 25%;
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+    }
+
+    .w3-panel p {
+      padding-top: 10px;
+    }
+
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+
+    td {
+      padding: 20px;
+      padding-left: 50px;
+      border-right: 1px solid green;
+    }
+
+    th {
+      border-bottom: 3px solid green;
+      padding-left: 50px;
+    }
+
+    .title h1{
+      text-align: center;
+      
+
+    }
+  </style>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+
+<br><br><br><br>
+<strong class="title"><h1>Feedbacks</h1></strong>
+{%for f in feedbacks%}
+<div class="alert">
+
+  <table>
+    
+    <tr>
+    <th>user name</th>
+    <th>date sent</th>
+    <th>feed</th>
+  </tr>
+  <tr>
+    <td>{{ f.user.user.username }}</td>
+    <td>{{f.date}}</td>
+    <td>{{f.feed}}</td>
+  </tr>
+  
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+  </table>
+</div>
+{%endfor%}
+
+{% endblock content %}
