@@ -354,7 +354,7 @@ html {
   </style>
 
 {%if products%}
-<h3 style="text-align:center; color:yellow;">{{ word }} <strong style="color:orange;">{{ query }}</strong></h3>
+<!-- <h3 style="text-align:center; color:yellow;">{{ word }} <strong style="color:orange;">{{ query }}</strong></h3>
 <br>
 <!-- products data starttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt -->
   <div class="row">
@@ -382,7 +382,7 @@ html {
                   <div class="h-bg-inner"></div>
                 </div>
 
-                <a class="cart" href="{% url 'add-to-cart' p.food.id  %}">
+                <a class="cart" href="{% url 'add-to-cart' p.id  %}">
                   <span class="price"> <i class="material-icons" style="font-size:15px;color:#f4511e;text-shadow:2px 2px 4px black;"><strong> ksh {{p.food.f_price}} -{{ p.percentage }}%</strong></i></span>
                   <span class="add-to-cart">
                     <span class="txt">Add in cart</span>
@@ -399,7 +399,7 @@ html {
     </div>
 
     <div class="row">
-
+ -->
           <br><br><br><br><br>
 {% endif %}
   {% endfor %}

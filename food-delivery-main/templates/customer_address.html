@@ -7,10 +7,13 @@
   <style type="text/css">
 
   	body {
-  		background: linear-gradient(to bottom, #0066cc, #0000ff);
+  		/*background: linear-gradient(to bottom, #0066cc, #0000ff);*/
+        background: none;
+        color: black;
+
   	}
 .form-style-1 {
-	margin:10px auto;
+	margin:5px auto;
 	max-width: 400px;
 	padding: 20px 12px 10px 20px;
 	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -40,7 +43,7 @@ select{
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	border:1px solid #BEBEBE;
+	border: 1px solid #ff80ff;
 	padding: 7px;
 	margin:0px;
 	-webkit-transition: all 0.30s ease-in-out;
@@ -62,14 +65,14 @@ select{
 	-moz-box-shadow: 0 0 10px #88D5E9;
 	-webkit-box-shadow: 0 0 8px #88D5E9;
 	box-shadow: 0 0 8px #88D5E9;
-	border: 1px solid #88D5E9;
+	border: 1px solid #ff80ff;
 }
 
 .form-style-1 input[type=submit], .form-style-1 input[type=button]{
 	background: none;
 	padding: 8px 15px 8px 15px;
-	border: 2px solid black;
-	color: #fff;
+	border: 2px solid green;
+	color: green;
 	border-radius: 10px;
 }
 .form-style-1 input[type=submit]:hover, .form-style-1 input[type=button]:hover{
@@ -87,12 +90,12 @@ select{
     display: block;
     margin: 10px auto;
     text-align: center;
-    border: 2px solid #ff80ff;
+    border: 1px solid #ff80ff;
     padding: 10px 10px;
-    width: 300px;
-    height: 60px;
+    width: 400px;
+    height: auto;
     outline: 2px solid black;
-    color: white;
+    color: black;
     border-radius: 0px 0px 20px 20px;
     transition: 0.6s;
 }
@@ -106,14 +109,48 @@ select{
     text-align: center;
     border: 2px solid #ff80ff;
     padding: 10px 10px;
-    width: 300px;
-    height: 60px;
+    width: 400px;
+    height: auto;
+    border: 1px solid #ff80ff;
     outline: none;
-    color: white;
+    color: black;
     border-radius: 0px 0px 20px 20px;
     transition: 0.6s;
 }
 
+#field2 {
+    border: 0;
+    background: none;
+    display: block;
+    border: 1px solid #ff80ff;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px 10px;
+    width: 400px;
+    height: auto;
+    outline: none;
+    color: black;
+    /*background: b;*/
+    border-radius: 0px 0px 20px 20px;
+    transition: 0.6s;
+}
+
+#fielde {
+     border: 0;
+    background: none;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px 10px;
+    width: 400px;
+    border: 1px solid #ff80ff;
+    height: auto;
+    outline: none;
+    color: black;
+    /*background: b;*/
+    border-radius: 0px 0px 20px 20px;
+    transition: 0.6s;
+}
 
 
 .box {
@@ -123,9 +160,11 @@ select{
     top: 0px;
     left: 15%;
     background: noe;
-    text-align: center;
+    text-align: left;
     transition: 0.25s;
-    margin-top: 150px
+    margin-top: 150px;
+    box-shadow: 0 0 3px #88D5E9;
+
 }
 
 
@@ -140,6 +179,9 @@ label {
 li{
     color: red;
     list-style-type: none;
+}
+label {
+    color: black;
 }
 
 </style>
@@ -165,7 +207,7 @@ li{
     </li>
     <li>
         <label>expected time <span class="required">*</span></label>
-        {% render_field addressForm.expected_time class="form-control"  %}
+        {% render_field addressForm.expected_time class="form-control" id="fielde" %}
         {% if addressForm.expected_time.errors %}
             <p class="errors">{{ addressForm.expected_time.errors }}</p>
         {% endif %}
@@ -173,7 +215,7 @@ li{
     <li>
 
          <label> delivery shift <span class="required">*</span></label>
-        {% render_field addressForm.shift class="form-control"  %}
+        {% render_field addressForm.shift id="field2" class="form-control"  %}
     </li>
 
     <li>

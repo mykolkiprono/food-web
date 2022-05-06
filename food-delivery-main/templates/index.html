@@ -4,28 +4,8 @@
 
   <style media="screen">
     body {
-      background-color: none;
-      /*animation-name: example1;
-  animation-duration: 20s;
-  animation-timing-function: linear;
-  animation-delay: 0s;
-  animation-iteration-count: infinite;
-  background: #0066cc;*/
-       /*background: url({% static 'bg-image.jpg' %});
-      background-repeat: repeat;
-      background-size: cover;
-      background-position: center;*/
+      /*background-color: #f2f2f2;*/
     }
-
-    /*@keyframes example1 {
-  0%   {background-color: #001a0;}
-  25%  {background-color:#333399;}
-  50%  {background-color:#264d00;}
-  75%  {background-color: #664400;}
-  80%  {background-color: #331a00;}
-  90%  {background-color: #1a001a;}
-  100% {background-color: #001a00;}
-}*/
 html {
   height: 100%;
 }
@@ -73,10 +53,11 @@ html {
   width: 360px;
   padding: 0px;
   margin: 5px auto;
-  background-color: #003399;
+  background-color: #e67e22;
+  /*border-radius: 20px 20px 0px 0px ;*/
   color: white;
-  /*box-shadow: 15px 15px 5px black;*/
-  box-shadow: 0 0 10px #ff0066;
+  box-shadow: 0px 0px 1px black;
+  /*box-shadow: 0 0 10px #d35400;*/
 }
 
 
@@ -139,7 +120,7 @@ html {
   height: 60px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 5px #003300;
+  /*box-shadow: 0 0 5px #003300;*/
 }
 
 /*image backgrounds*/
@@ -150,12 +131,13 @@ html {
   overflow: hidden;
   text-align: center;
   background-color: white;
-  /*background-color: #446600;*/
+  /*border-radius: 20px 20px 0px 0px;*/
 }
 
 .el-wrapper .img {
   padding: 0px 0;
   width: 360px;
+  /*border-radius: 20px 20px 0px 0px;*/
   /*border-radius: 20px;*/
   -webkit-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
   -moz-transition: all 800ms cubic-bezier(0, 0, 0.18, 1);
@@ -182,18 +164,16 @@ html {
   /* ease-out */
   width: 660px;
   height: 100%;
-  background-color: #ff99ff;
-  /*background-color: red;*/
+ 
   position: absolute;
   left: -659px;
-  /*left: -1000px;*/
 }
 
 .h-bg .h-bg-inner {
   width: 55%;
   height: 100%;
-  /*background-color: #464646;*/
-  background-color: #283593;
+  /*background-color: #2ECC71;*/
+  background-color: #538cc6;
 }
 
 .info-inner {
@@ -368,9 +348,9 @@ html {
             <div class="el-wrapper">
               <div class="box-up">
                 <img class="img" src="{% static p.image.url %}" alt="product pic" height="300px" width="300px">
-                <div class="img-info">
+                <div class="img-info"  >
                   <div class="info-inner">
-                    <span style="background-color:#ff99ff; color:yellow;"class="p-company"><p style="color: black;">{{p.f_name}}</p></span>
+                    <span style="background-color: #d35400; color:yellow;"class="p-company"><p style="color: black; font-family: Nunito,sans-serif;"><span class="badge badge-dark">{{p.f_name}}</span></p></span>  
 
                   </div>
                   <div class="a-size">{{p.f_desc}}</div>
@@ -383,7 +363,7 @@ html {
                 </div>
 
                 <a class="cart" href="{% url 'add-to-cart' p.id  %}">
-                  <span class="price"> <i class="material-icons" style="font-size:15px;color:#f4511e;text-shadow:2px 2px 4px black;"><strong> ksh {{p.f_price}}</strong></i></span>
+                  <span class="price"> <i class="material-icons" style="font-size:15px;color:#f4511e;text-shadow:2px 2px 4px black;"><strong> <span class="badge badge-pill badge-info">ksh {{p.f_price}}</span></strong></i></span>
                   <span class="add-to-cart">
                     <span class="txt">Add in cart</span>
                   </span>

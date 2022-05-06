@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import Customer, Region, Food, monthly_plan, Feedback, Orders, Offers
+from .models import Customer, Region, Food, monthly_plan, Feedback, Orders, Offers, Blogs
 from .serializers import CustomerSerializer, RegionSerializer, FoodSerializer, FeedbackSerializer, OffersSerializer, UserSerializer, AdminPanelSerializer
 from rest_framework import serializers
 from rest_framework.decorators import api_view
@@ -15,6 +15,8 @@ from . import forms
 from . import models
 from django.core.mail import send_mail
 from django.conf import settings
+
+import collections
 
 
 
@@ -159,19 +161,11 @@ def signup(request):
             my_customer_group = Group.objects.get_or_create(name='CUSTOMER')
             my_customer_group[0].user_set.add(user)
 
-            return HttpResponse("success")
+            return HttpResponseRedirect("customerlogin")
 
         else:
             HttpResponse("error")
-        #     userForm = UserForm()
-        #     customerForm = CustomerForm()
-            # # context={'form_errors':customerForm.errors}
-            # errors = customerForm.errors.values()
-            # errors = {'errors':errors}
-            # render(request,'signup.html',mydict)
-            # return HttpResponse(customerForm.errors.values())
-            # return render(request,'signup.html',{'userForm':userForm,'customerForm':customerForm})
-
+        
     return render(request,'signup.html',{'userForm':userForm,'customerForm':customerForm})
 
 
@@ -232,14 +226,16 @@ def offers_view(request):
         product_count_in_cart=len(set(counter))
     else:
         product_count_in_cart=0
-    # if request.user.is_authenticated:
-    #     return HttpResponseRedirect('afterlogin')
-
-    # orders = Orders.objects.all()
-    # order.food
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('afterlogin')
     return render(request,'offers.html',{'products':products,'product_count_in_cart':product_count_in_cart})
 
 
+# def index(request):
+#     feed = Feedback.objects.all()
+#     return render("landing/index.html")
+
+ 
 #for showing login button for admin(by sumit)
 def adminclick_view(request):
     if request.user.is_authenticated:
@@ -325,7 +321,8 @@ def update_customer_view(request,pk):
 @login_required(login_url='adminlogin')
 def admin_products_view(request):
     products=models.Food.objects.all()
-    return render(request,'admin_products.html',{'products':products})
+    total = products.count()
+    return render(request,'admin_products.html',{'products':products,'count':total})
 
 
 # admin add product by clicking on floating button
@@ -364,12 +361,24 @@ def admin_view_booking_view(request):
     orders=models.Orders.objects.all()
     ordered_products=[]
     ordered_bys=[]
+    time = []
     for order in orders:
         ordered_product=Food.objects.all().filter(id=order.food.id)
         ordered_by=Customer.objects.all().filter(id = order.customer.id)
         ordered_products.append(ordered_product)
         ordered_bys.append(ordered_by)
-    return render(request,'admin_view_booking.html',{'data':zip(ordered_products,ordered_bys,orders)})
+
+        if order.delivered_time:
+        # if order.status == 'Delivered':
+            delta = order.delivered_time - order.date_ordered
+            t = str(delta)
+            time.append(t)
+
+        else:
+            delta ="-"  
+            time.append(delta) 
+        total = len(ordered_products)
+    return render(request,'admin_view_booking.html',{'data':zip(ordered_products,ordered_bys,orders,time),'count':total})
 
 
 @login_required(login_url='adminlogin')
@@ -377,7 +386,9 @@ def delete_order_view(request,pk):
     order=Orders.objects.get(id=pk)
     order.delete()
     return redirect('admin-view-booking')
-import datetime
+# import datetime as dt
+# from datetime import datetime, timedelta
+from datetime import datetime
 # for changing status of order (pending,delivered...)
 @login_required(login_url='adminlogin')
 def update_order_view(request,pk):
@@ -387,9 +398,10 @@ def update_order_view(request,pk):
         orderForm=forms.OrderForm(request.POST,instance=order)
         if orderForm.is_valid():
             orderForm.save()
-        if order.status=='Delivered':
-            order.delivered_time = datetime.datetime.now()
-            return redirect('admin-view-booking')
+        if str(order.status)=='Delivered':
+            print("delivered")
+            order.delivered_time = datetime.now()
+        return redirect('admin-view-booking')
     return render(request,'update_order.html',{'orderForm':orderForm})
 
 
@@ -398,6 +410,58 @@ def update_order_view(request,pk):
 def view_feedback_view(request):
     feedbacks=Feedback.objects.all().order_by('-id')
     return render(request,'view_feedback.html',{'feedbacks':feedbacks})
+
+@login_required(login_url='adminlogin')
+def select_food_view(request,name):    
+    food = Food.objects.all().filter(f_name=str(name))[0]
+    orders=models.Orders.objects.all().filter(food=food.id)
+    ordered_products=[]
+    ordered_bys=[]
+    time = []
+    for order in orders:
+        # ordered_product=Food.objects.all().filter(id=order.food.id)
+        ordered_product = Food.objects.all().filter(f_name=str(name))
+        ordered_by=Customer.objects.all().filter(id = order.customer.id)
+        ordered_products.append(ordered_product)
+        ordered_bys.append(ordered_by)
+
+        if order.delivered_time:
+            delta = order.delivered_time - order.date_ordered 
+            t = str(delta)
+            time.append(t)
+
+        else:
+            delta ="-"  
+            time.append(delta) 
+    # print(ordered_products)
+    total = len(ordered_products)
+    return render(request,'admin_view_booking.html',{'data':zip(ordered_products,ordered_bys,orders,time),'name':name,'count':total})
+
+@login_required(login_url='adminlogin')
+def select_status_view(request,status):    
+    orders=models.Orders.objects.all().filter(status=str(status))
+    ordered_products=[]
+    ordered_bys=[]
+    count = 0
+    time = []
+    for order in orders:
+        ordered_product=Food.objects.all().filter(id=order.food.id)
+        ordered_by=Customer.objects.all().filter(id = order.customer.id)
+        ordered_products.append(ordered_product)
+        ordered_bys.append(ordered_by)
+        
+
+        if order.delivered_time:
+            delta = order.delivered_time - order.date_ordered 
+            t = str(delta)
+            time.append(t)
+
+        else:
+            delta ="-"  
+            time.append(delta) 
+    count = len(set(ordered_products))
+    print(count)
+    return render(request,'admin_view_booking.html',{'data':zip(ordered_products,ordered_bys,orders,time),'count':count})
 
 #---------------------------------------------------------------------------------
 #------------------------ PUBLIC CUSTOMER RELATED VIEWS START ---------------------
@@ -450,8 +514,6 @@ def add_to_cart_view(request,pk):
     product=Food.objects.get(id=pk)
     messages.info(request, product.f_name + ' added to cart successfully!')
     return response
-
-
 
 # for checkout of cart
 def cart_view(request):
@@ -521,17 +583,6 @@ def send_feedback_view(request):
             return render(request, 'feedback_sent.html')
     return render(request, 'send_feedback.html', {'feedbackForm':feedbackForm})
 
-@login_required(login_url='customerlogin')
-@user_passes_test(is_customer)
-def cancel_order(request,pk):
-    order = Orders.objects.get(id=pk)
-    if order.status=='Out for Delivery':
-        messages.info(request, 'Dear customer once the order is out on delivery it cannot be cancelled')
-    else:
-        order.delete()
-        messages.info(request, str(order.food) + ' order successfully cancelled')   
-
-    return redirect('my-order')
 
 #---------------------------------------------------------------------------------
 #------------------------ CUSTOMER RELATED VIEWS START ------------------------------
@@ -553,8 +604,6 @@ def customer_home_view(request):
 # shipment address before placing order
 @login_required(login_url='customerlogin')
 def customer_address_view(request):
-    # this is for checking whether product is present in cart or not
-    # if there is no product in cart we will not show address form
     product_in_cart=False
     # monthly = False
     if 'product_ids' in request.COOKIES:
@@ -568,14 +617,10 @@ def customer_address_view(request):
         product_count_in_cart=len(set(counter))
     else:
         product_count_in_cart=0
-
     addressForm = forms.AddressForm()
     if request.method == 'POST':
         addressForm = forms.AddressForm(request.POST)
         if addressForm.is_valid():
-            # here we are taking address, email, mobile at time of order placement
-            # we are not taking it from customer account table because
-            # these thing can be changes
             email = addressForm.cleaned_data['Email']
             mobile=addressForm.cleaned_data['Mobile']
             address = addressForm.cleaned_data['Address']
@@ -593,7 +638,6 @@ def customer_address_view(request):
                         if monthly:
                             total=int(p.f_price)*30
                         total=total+p.f_price
-
             response = render(request, 'payment.html',{'total':total})
             response.set_cookie('monthly',monthly)
             response.set_cookie('email',email)
@@ -611,11 +655,6 @@ def customer_address_view(request):
 #then only this view should be accessed
 @login_required(login_url='customerlogin')
 def payment_success_view(request):
-    # Here we will place order | after successful payment
-    # we will fetch customer  mobile, address, Email
-    # we will fetch product id from cookies then respective details from db
-    # then we will create order objects and store in db
-    # after that we will delete cookies because after order placed...cart should be empty
     customer=models.Customer.objects.get(user_id=request.user.id)
     products=None
     email=None
@@ -644,13 +683,6 @@ def payment_success_view(request):
     if 'expected_time' in request.COOKIES:
         expected_time=request.COOKIES['expected_time']
 
-    # for product in products:
-    #     models.Orders.objects.get_or_create(customer=customer,food=product,status='Pending',address=address,shift=shift,expected_time=expected_time)
-
-
-    # here we are placing number of orders as much there is a products
-    # suppose if we have 5 items in cart and we place order....so 5 rows will be created in orders table
-    # there will be lot of redundant data in orders table...but its become more complicated if we normalize it
     for product in products:
         if monthly == True:
             models.monthly_plan.objects.get_or_create(customer=customer,food=product,delivery_time=expected_time)        
@@ -693,7 +725,7 @@ def my_order_view(request):
     for order in orders:
         if order.delivered_time:
             delta = order.delivered_time - order.date_ordered 
-            time.append(round(delta.seconds/3600,1))
+            time.append(str(delta))
 
         else:
             delta ="-"  
@@ -704,6 +736,18 @@ def my_order_view(request):
         # time=iter(list(delta))
     return render(request,'my_order.html',{'data':zip(ordered_products,orders,time),'time':time})
 
+@login_required(login_url='customerlogin')
+@user_passes_test(is_customer)
+def cancel_order(request,pk):
+    order = Orders.objects.get(id=pk)
+    message = ""
+    if order.status=='Out for Delivery':
+        messages = 'Dear customer once the order is out on delivery it cannot be cancelled'
+    else:
+        order.delete()
+        messages = str(order.food) + ' order successfully cancelled'   
+
+    return redirect('my-order')
 
 #--------------(pdf) download and printing
 import io
@@ -776,7 +820,24 @@ def edit_profile_view(request):
 #------------------------ ABOUT US AND CONTACT US VIEWS START --------------------
 #---------------------------------------------------------------------------------
 def aboutus_view(request):
-    return render(request,'aboutus.html')
+    return render(request,'landing/index.html')
+from collections import Counter
+def index(request):
+    feed = Feedback.objects.all()
+    blogs = Blogs.objects.all()
+    # ords = Orders.objects.all()
+    # print(ords)
+
+
+    # trending = Counter(list(ord))
+    # for t in ord:
+    #     trending.append(t.id)
+    # print(trending,"...............................................")
+    feed = {
+        'feed':feed,
+        'blogs':blogs
+    }
+    return render(request,'landing/index.html',context=feed)
 
 def contactus_view(request):
     sub = forms.ContactusForm()

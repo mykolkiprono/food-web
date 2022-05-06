@@ -113,4 +113,10 @@ class monthly_plan(models.Model):
 	# def __str__(self):
 	# 	return str(self.customer), "'s",str(self.food),"delivery at ",str(self.delivery_time) 
 
+class Blogs(models.Model):
+	title = models.CharField(max_length=30)
+	blog = models.CharField(max_length=200)
+	image = models.ImageField(upload_to='food',null=True,blank=True)
+	def __str__(self):
+		return str(self.title) 
 

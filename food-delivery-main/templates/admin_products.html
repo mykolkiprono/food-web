@@ -37,9 +37,18 @@
 .my-float{
 	margin-top:22px;
 }
+
+.container {
+
+  }
+
+  .tot {
+    font-size: 30px;
+  }
   </style>
-</head>
-<br><br><br><br><br><br>
+}
+</head><br><br><br><br><br><br><br><br><br>
+
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -59,22 +68,26 @@
       {% for p in products %}
   {% if p %}
 
-      <tr>
+     <tr>
+      
         <td> {{p.f_name}}</td>
         <td> <img src="{% static p.image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
         <td>{{p.f_price}}</td>
-        <td>{{p.desc}}</td>
+        <td>{{p.f_desc}}</td>
         <td><a class="btn btn-primary btn-xs" href="{% url 'update-product' p.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
         <td><a class="btn btn-danger btn-xs" href="{% url 'delete-product' p.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
-
+  
       </tr>
       {%else%}
       <br><br><br>
-      <h1>no products</h1>
+      <h1>no food</h1>
       {% endif %}
       {% endfor %}
+    
     </table>
+
   </div>
+  <p class="tot">Total {{ count }}</p>
 </div>
 <!-- add product floating button -->
 <a href="/admin-add-product" class="float">

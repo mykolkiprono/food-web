@@ -20,30 +20,53 @@
     .row {
       margin: 100px;
     }
+    .tot {
+      font-size: 30px;
+    }
+
+    form {
+      margin: 0px;
+      padding: 0px;
+      width: 5px;
+    }
+
+    .fo {
+      width: 5px;
+    }
+
+
   </style>
 </head>
+<br><br><br>
 
-<div class="container">
+<div class="container-fluid">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h6 class="panel-title">Total Orders</h6>
+      <h6 class="panel-title">Orders : {{ name }}</h6>
     </div>
-    <table class="table table-hover" id="dev-table">
+
+        <table class="table table-hover" id="dev-table">
+
       <thead>
         <tr>
+
+
           <th>Customer Name</th>
           <th>Customer Mobile</th>
           <th>Shipment Address</th>
-          <th>Product Name</th>
+          <th><a href="#">Product Name</a></th>
           <th>Product Picture</th>
           <th>Status</th>
+          <th>Time taken</th>
           <th>Update Status</th>
           <th>Delete</th>
         </tr>
       </thead>
       <!-- p for product, c for customer-->
-      {% for product,customer,order in data %}
+      
+      {% for product,customer,order,time in data %}
       <tr>
+
         {% for c in customer %}
         <td> {{c.get_name}}</td>
         <td>{{c.c_phone_number}}</td>
@@ -51,20 +74,30 @@
 
         {% endfor %}
         {% for p in product %}
-        <td> {{p.f_name}}</td>
+        
+        <td> <a href="{% url 'select_food_view' p.f_name  %}">{{p.f_name}}</a></td>
         <td> <img src="{% static p.image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
-        <td>{{order.status}}</td>
+        <td><a >{{order.status}}</a></td>
+        <td style="color:darkred;">{{ time }}</td>
         <td><a class="btn btn-primary btn-xs" href="{% url 'update-order' order.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
         <td><a class="btn btn-danger btn-xs" href="{% url 'delete-order' order.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
 
         {% endfor %}
-
+        
 
 
       </tr>
+      </li>
+    
       {% endfor %}
+
+    
     </table>
+
+    
+    
   </div>
+  <p class="tot">Total {{ count }}</p>
 </div>
 
 {% endblock content %}

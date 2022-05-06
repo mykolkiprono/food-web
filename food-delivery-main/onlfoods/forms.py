@@ -1,22 +1,17 @@
 from .models import Customer, Orders
 from django.contrib.auth.models import User
 from django import forms
-# from django.forms.widgets DateInput
 from . import models
 from datetime import datetime
 from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 
-class UserForm(forms.ModelForm):
 
-	class Meta:
-		model = User 
-		fields = ['username','password']
+
 from django.utils import timezone		
 class AddressForm(forms.Form):
     Email = forms.EmailField()
     Mobile= forms.IntegerField()
     Address = forms.CharField(max_length=500)
-    # expected_time = forms.DateTimeField(widget = forms.SelectDateWidget(years=range(2022, 2023)))
     expected_time = forms.DateTimeField(widget=DateTimePickerInput())
     shifts =(
         ('morning','morning'),
@@ -84,3 +79,22 @@ class CustomerForm(forms.ModelForm):
 
         return self.cleaned_data
         
+
+class statusForm(forms.ModelForm):
+    class Meta:
+        model = models.Orders
+        fields = ['status']
+
+class UserForm(forms.ModelForm):
+
+    class Meta:
+        model = User 
+        fields = ['username','password']
+
+    def clean(self):
+        super(UserForm, self).clean()
+        username = self.cleaned_data.get('username')
+        if username.isnumeric():
+            self._errors['username'] = self.error_class(['username cannot be numbers'])
+        if len(username) < 5:
+            self._errors['username'] = self.error_class(['username must be more than 5 characters'])

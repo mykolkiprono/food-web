@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -11,10 +13,18 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Latest compiled JavaScript -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href= {% static 'css/style.css' %} rel="stylesheet">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
   <style>
-  body {
+  body { 
       background-color: none;
   }
 
@@ -34,10 +44,11 @@
 
  .navbar-input {
     padding: 11px 16px;
-    border-radius: 20px 0 0 2px;
+    border-radius: 20px 0 0 20px;
     border: 2px solid orange;
     outline: 0 none;
-    font-size: 15px
+    font-size: 15px;
+    
 }
 
  .navbar-button {
@@ -254,15 +265,24 @@
                 </ul>
             </div>
             <div class="row row2">
-                <div class="col-sm-2" id="brand">
-                <a href="/" class="home"><i class="material-icons" style="font-size:25px;color:#f4511e;text-shadow:2px 2px 3px black;"><strong><u>Quick</u>Eats.com</strong></i>
+                <div class="col-sm-2" id="brad" style="border-radius: 0px 20px 0px 20px;
+    text-decoration: none;
+    box-shadow: 0px 0px 1px black;">
+                <!-- <a href="/" class="home"><i class="material-icons" style="font-size:25px;color:#f4511e;text-shadow:2px 2px 3px black;"><strong><u>Quick</u>Eats.com</strong></i> -->
+                  <a href="/" class="navbar-brand" style="font-size:25px">Quick<span>Eats</span></a>
                 </a>
             </div>
 
-            <div class="col-sm-1" id="offer">
-                <a href="/" class="home"><i class="material-icons" style="font-size:25px;color:#f4511e;text-shadow:2px 2px 3px black;">offers</i>
+            <div class="col-sm-1 offer">
+                <a href="/offers" class="home" style="font-size: 25px; padding-top: 10px;">offers
                 </a>
             </div>
+
+            <!-- <div class="col-sm-1" id="offer"> -->
+                <!-- <a href="/" class="home"><i class="material-icons" style="font-size:25px;color:#f4511e;text-shadow:2px 2px 3px black;">offers</i> -->
+                <!-- <a href="/offers" class="home" style="font-size: 25px">offers -->
+                <!-- </a> -->
+            <!-- </div> -->
 
                 <div class="navbar-search smallsearch col-sm-4 col-xs-11">
                   <form  action="/search" method="get">

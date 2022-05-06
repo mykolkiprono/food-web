@@ -50,10 +50,11 @@
 <!------ update page for doctor by admin(sumit)  ---------->
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
+  {{ productForm.media }}
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>ADD PRODUCTS</p>
+        <p>ADD FOOD</p>
       </div>
       <div class="form-content">
         <div class="row">

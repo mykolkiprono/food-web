@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, Region_manager,Region, Orders, Food, Feedback, Offers, monthly_plan
+from .models import Customer, Region_manager,Region, Orders, Food, Feedback, Offers, monthly_plan, Blogs
 
 
 @admin.action(description='deactivate customer')
@@ -48,3 +48,8 @@ class montly_planAdmin(admin.ModelAdmin):
     list_display = ['food', 'customer','delivery_time']
     
 admin.site.register(monthly_plan,montly_planAdmin)
+
+class blogAdmin(admin.ModelAdmin):
+    list_display = ['blog','image']
+    
+admin.site.register(Blogs,blogAdmin)

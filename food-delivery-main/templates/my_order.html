@@ -248,13 +248,14 @@ p {
                     
                     <div class="col"> <strong>Shipment shift:</strong> <br> {{order.shift}}</div><br>
                     <a href="{% url 'cancel_order' order.id%}" class="cancel">cancel order</a>
+                    <p>{{ message }}</p>
                
                 </li>
                  
                 <li class="col-md-4">
                     <div class="col"> <strong>Status:</strong> <br> {{order.status}} </div> <br>
-                    <div class="col"> <strong>time taken</strong> <br> <strong style="color: darkolivegreen;">{{ time }} Hours</strong></div><br>
-                    <h4><a class="download" href="{% url 'download-invoice' order.id product.id  %}" >Download Invoice</a></h4>
+                    <div class="col"> <strong>time taken</strong> <br> <strong style="color: darkolivegreen;">{{ time }} </strong></div><br>
+                    <h4><a class="download" href="{% url 'download-invoice' order.id product.id  %}" target="_blank">Download Invoice</a></h4>
                     
                 </li>
                 {%endfor%}

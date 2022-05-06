@@ -5,12 +5,23 @@
 
 <head>
   <style media="screen">
+
+    body {
+      color: black;
+    }
     .alert {
       margin-left: 25%;
       margin-right: 25%;
-      padding: 20px;
-      background-color: #f44336;
-      color: white;
+      padding: 10px;
+      /*background-color: #f44336;*/
+      background: green;
+      color: orange;
+      /*border-bottom: 1px solid green;*/
+     
+    }
+
+    .container {
+      /*border: 1px solid green;*/
     }
 
     .w3-panel p {
@@ -19,13 +30,14 @@
 
     .closebtn {
       margin-left: 15px;
-      color: white;
+      color: red;
       font-weight: bold;
       float: right;
       font-size: 22px;
       line-height: 20px;
       cursor: pointer;
       transition: 0.3s;
+
     }
 
     .closebtn:hover {
@@ -35,11 +47,11 @@
     td {
       padding: 20px;
       padding-left: 50px;
-      border-right: 1px solid green;
+      /*border-right: 1px solid green;*/
     }
 
     th {
-      border-bottom: 3px solid green;
+      border-bottom: 3px solid orange;
       padding-left: 50px;
     }
 
@@ -54,7 +66,8 @@
 </head>
 
 <br><br><br><br>
-<strong class="title"><h1>Feedbacks</h1></strong>
+<strong class="title"><h1>Messages</h1></strong>
+<div class="container">
 {%for f in feedbacks%}
 <div class="alert">
 
@@ -63,7 +76,7 @@
     <tr>
     <th>user name</th>
     <th>date sent</th>
-    <th>feed</th>
+    <th>messages</th>
   </tr>
   <tr>
     <td>{{ f.user.user.username }}</td>
@@ -76,5 +89,6 @@
   </table>
 </div>
 {%endfor%}
+</div>
 
 {% endblock content %}

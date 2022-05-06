@@ -23,6 +23,8 @@ urlpatterns = [
     path('view-customer', views.view_customer_view,name='view-customer'),
     path('delete-customer/<int:pk>', views.delete_customer_view,name='delete-customer'),
     path('update-customer/<int:pk>', views.update_customer_view,name='update-customer'),
+    path('select-food/<str:name>',views.select_food_view,name="select_food_view"),
+    path('select-status/<str:status>',views.select_status_view,name="select_status"),
 
 
     path('aboutus', views.aboutus_view),
@@ -40,10 +42,10 @@ urlpatterns = [
     path('api/user/<str:pk>/', views.get_user),
     path('api/adit-user/<str:pk>/', views.edit_user),
 
-    path('logout', LogoutView.as_view(template_name='logout.html'),name='logout'),
+    path('logout', LogoutView.as_view(template_name='customerlogin.html'),name='logout'),
     path('customersignup', views.signup),
     path('customerlogin', LoginView.as_view(template_name='customerlogin.html'),name='customerlogin'),
-    path('customer-home', views.customer_home_view,name='customer-home'),
+    path('customer-home', views.home_view,name='customer-home'),
     path('my-order', views.my_order_view,name='my-order'),
     path('monthly-order', views.monthly_order_view,name='monthly_plan'),
     # path('make-monhtly',views.make_monthly),
@@ -52,7 +54,8 @@ urlpatterns = [
     path('download-invoice/<int:orderID>/<int:productID>', views.download_invoice_view,name='download-invoice'),
 
     # ==========website=====================================================
-    path('',views.home_view),
+    path('',views.index,name="index"),
+    path('index',views.home_view),
     path('afterlogin',views.admin_dashboard_view),
 
     # food

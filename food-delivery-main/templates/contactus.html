@@ -4,6 +4,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
   <title></title>
 
@@ -26,21 +27,32 @@
     .form-group {
       height: 300px;
       width: 300px;
+      display: inline-block;
+      font-weight: 600px;
+      font-family: monospace;
+
     }
 
     input {
       width: 200px;
+      border:  1px solid orange;
+      border-radius: 5px;
+    }
+
+    input [type="text"]{
+      border-radius: 20px;
+
     }
 
     form p{
       align-items: center;
       width: 100%;
+      display: block;
     }
 
-form {
-  color: red;
+
   </style>
-}
+
 
 
 </head>

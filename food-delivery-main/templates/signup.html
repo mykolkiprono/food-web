@@ -14,19 +14,25 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(to bottom, #0066cc, #0000ff)
+    color: black;
+    /*background: linear-gradient(to bottom, #0066cc, #0000ff)*/
 }
 
 .box {
     width: 1000px;
     padding: 0px;
     position: absolute;
-    top: 0px;
-    left: 15%;
-    background: #191919;
+    top: 10px;
+    left: 20%;
+    /*background: #191919;*/
+    background: none;
     text-align: center;
     transition: 0.25s;
-    margin-top: 150px
+    /*border: 2px solid #BDC3C7;*/
+    margin-top: 120px;
+    box-shadow: 0px 0px 5px #ff80ff;
+    text-align: left;
+    color: black;
 }
 
 /*.box input[type="text"],*/
@@ -36,13 +42,14 @@
     display: block;
     margin: 10px auto;
     text-align: center;
-    border: 2px solid #ff80ff;
+    /*border: 2px solid #7F8C8D;*/
+    box-shadow: 0px 0px 4px black;
     padding: 10px 10px;
 
-    width: 300px;
-    height: 60px;
+    width: 600px;
+    height: 40px;
     outline: none;
-    color: white;
+    color: black;
     border-radius: 0px 0px 20px 20px;
     transition: 0.6s;
 }
@@ -53,46 +60,50 @@
     font-weight: 500
 }
 
-/*.box input[type="text"]:focus,*/
+.box input[type="text"]:focus,
 .box input:focus {
     width: 600px;
-    border-color: #ff80ff;
+    /*border-color: black;*/
+    /*border:  2px solid black;*/
+    box-shadow: 0px 0px 4px orange;
     border-radius: 50px 50px 50px 50px;
 }
 
 .box input[type="submit"] {
     border: 0;
-    background: none;
+    background: #D35400;
+    color: black;
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid #ff80ff;
-    padding: 14px 40px;
+    border: 2px solid #7F8C8D;
+    /*padding: 14px 20px;*/
     outline: none;
     height: 50;
     color: white;
     border-radius: 24px;
     transition: 0.25s;
     cursor: pointer;
-    width: 400px;
+    width: 600px;
 }
 
 .box input[type="submit"]:hover {
-    background: #ff80ff;
+    /*background: black;*/
 }
 
 #reg {
     border: 0;
-    background: none;
+    background: D35400;
     display: block;
     margin: 10px auto;
     text-align: center;
-    border: 2px solid #ff80ff;
+    border: 1px solid #7F8C8D;
     padding: 10px 10px;
-    width: 300px;
-    height: 60px;
+    width: 600px;
+    height: 40px;
+    box-shadow: 0px 0px 4px black;
     outline: none;
-    color: white;
+    color: black;
     border-radius: 0px 0px 20px 20px;
     transition: 0.6s;
 }
@@ -101,6 +112,9 @@ label {
     color: white;
     letter-spacing: 2px;
     /*background-color: red;*/
+    color: black;
+    font-size: 20px;
+    padding-left: 200px;
 }
 
 li{
@@ -122,31 +136,38 @@ li{
             	<form method="POST" class="box">
             		                {% csrf_token %}
 
-                                <h1>CUSTOMER SIGNUP</h1>
-                                <p style="color:white;"> Please enter your details to create account !</p>
+                                <!-- <h1>CUSTOMER SIGNUP</h1>
+                                <p style="color:white;"> Please enter your details to create account !</p> -->
                 
                                       <label>Name</label> {% render_field userForm.username class="form-control" placeholder="Username" %}
                                       {% if userForm.username.errors %}
-                                          <p class="errors">{{ userForm.username.errors }}</p>
-                                          {% endif %}
+                                      <center><p class="errors">{{ userForm.username.errors }}</p>
+                                          {% endif %}</center>
+                                          
                                         <label>Password</label> {% render_field userForm.password class="form-control" placeholder="Password" %}
                                           <label>Home Address</label> {% render_field customerForm.address class="form-control" placeholder="Address" %}
-                                          
-                                         {% if customerForm.address.errors %}
+                                          <center>{% if customerForm.address.errors %}
                                           <p class="errors">{{ customerForm.address.errors }}</p>
-                                          {% endif %}
+                                          {% endif %}</center>
+                                         
 
                                          <label>Select Region</label> {% render_field customerForm.c_region class="form-control" placeholder="Address" id="reg" %}
-                                         {% if customerForm.address.errors %}
+                                         <center> {% if customerForm.address.errors %}
                                           <p class="errors">{{ customerForm.c_region.errors }}</p>
                                           {% endif %}
+                                        </center>
                                         
                                           <label>Email</label> {% render_field customerForm.c_email class="form-control" placeholder="Email" %}
+                                           <center>{% if customerForm.address.errors %}
+                                          <p class="errors">{{ customerForm.c_email.errors }}</p>
+                                          {% endif %}</center>
+                                        
 
                                             <label>Phone Number</label> {% render_field customerForm.c_phone_number class="form-control" placeholder="Mobile" %}
-                                            {% if customerForm.address.errors %}
+                                            <center>{% if customerForm.address.errors %}
                                           <p class="errors">{{ customerForm.c_phone_number.errors }}</p>
-                                          {% endif %}                                           
+                                          {% endif %}  </center>
+                                                                                     
                                                 
                                               <label>Profile pic</label> {% render_field customerForm.profile_pic class="form-control" placeholder="Profile pic" %}
                               
@@ -155,10 +176,7 @@ li{
 <br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br>
-<br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><b>
+
    <!--  <form method="POST" class="box">
            {% for field in customerForm %}
             <div class="fieldWrapper">
@@ -175,14 +193,9 @@ li{
           </div>
         </div>
       </div>
+
 <br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br>
-<br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 {% include 'footer.html' %}
 </body>
 </html>
